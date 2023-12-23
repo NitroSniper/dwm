@@ -43,7 +43,7 @@ static const char *colors[][5]      = {
 
 /* tagging                     term     ffox    */
 // static const char *tags[] = { "\uf192", "\uf192", "\uf192", "\uf192", "\uf192", "\uf192" };
-static const char *tags[] = { "\uf417", "\uf417", "\uf417", "\uf417", "\uf417", "\uf417" };
+static const char *tags[] = { "\uf417", "\uf417", "\uf417", "\uf417", "\uf417", "\uf417", "\uf417", "\uf417", "\uf417" };
 
 static const Rule rules[] = {
   /* xprop(1):
@@ -54,9 +54,6 @@ static const Rule rules[] = {
   { "Gimp",        NULL,       NULL,       0,            1,           0,         0,          -1 },
   { "firefox",     NULL,       NULL,       1 << 1,       0,           0,         -1,         -1 },
   { "discord",     NULL,       NULL,       2 << 1,       0,           0,         0,          -1 },
-  { "Slack",       NULL,       NULL,       2 << 1,       0,           0,         0,          -1 },
-  { "mpv",         NULL,       NULL,       0,            0,           0,         0,          -1 },
-  { "sxiv",        NULL,       NULL,       0,            0,           0,         0,          -1 },
   { "st-256color", NULL,       NULL,       0,            0,           1,         0,          -1 },
 };
 
@@ -76,7 +73,7 @@ static const Layout layouts[] = {
 };
 
 /* key definitions */
-#define MODKEY Mod4Mask
+#define MODKEY Mod1Mask
 #define TAGKEYS(KEY,TAG) \
   { MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
   { MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
@@ -84,7 +81,7 @@ static const Layout layouts[] = {
   { MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
-#define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
+#define BASHCMD(cmd) { .v = (const char*[]){ "/usr/bin/bash", "-c", cmd, NULL } }
 
 /* commands */
 // static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
@@ -95,23 +92,15 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 // static const char *dmenucmd[]    = { "dmenu_run", "-c", "-m", dmenumon, "-l", "10", NULL };
 static const char *dmenucmd[]    = { "dmenu_run", "-h", "28", "-m", dmenumon, NULL };
 static const char *termcmd[]     = { "st", NULL };
-static const char *powercmd[]    = { "power", NULL };
-static const char *gamescmd[]    = { "games", NULL };
-static const char maimfullcmd[]  = "maim | xclip -selection clipboard -t image/png";
-static const char maimselcmd[]   = "maim --select | xclip -selection clipboard -t image/png";
-static const char incvolcmd[]    = "pamixer -i 10 && pkill -RTMIN+10 dwmblocks";
-static const char decvolcmd[]    = "pamixer -d 10 && pkill -RTMIN+10 dwmblocks";
+static const char incvolcmd[]    = "pamixer -i 2 && pkill -RTMIN+10 dwmblocks";
+static const char decvolcmd[]    = "pamixer -d 2 && pkill -RTMIN+10 dwmblocks";
 
 static const Key keys[] = {
   /* modifier                     key        function        argument */
   { MODKEY,                       XK_p,         spawn,          {.v = dmenucmd } },
-  { MODKEY|ShiftMask,             XK_p,         spawn,          {.v = powercmd } },
-  { MODKEY,                       XK_g,         spawn,          {.v = gamescmd } },
   { MODKEY|ShiftMask,             XK_Return,    spawn,          {.v = termcmd } },
-  { MODKEY,                       XK_m,         spawn,          SHCMD(maimfullcmd) },
-  { MODKEY|ShiftMask,             XK_m,         spawn,          SHCMD(maimselcmd) },
-  { MODKEY,                       XK_v,         spawn,          SHCMD(incvolcmd) },
-  { MODKEY|ShiftMask,             XK_v,         spawn,          SHCMD(decvolcmd) },
+  { MODKEY,                       XK_v,         spawn,          BASHCMD(incvolcmd) },
+  { MODKEY|ShiftMask,             XK_v,         spawn,          BASHCMD(decvolcmd) },
 
   { MODKEY,                       XK_b,         togglebar,      {0} },
   { MODKEY,                       XK_j,         focusstack,     {.i = +1 } },
