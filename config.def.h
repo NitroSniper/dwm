@@ -82,7 +82,7 @@ static const Layout layouts[] = {
   { MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
-#define BASHCMD(cmd) { .v = (const char*[]){ "/usr/bin/bash", "-c", cmd, NULL } }
+#define SHCMD(cmd) { .v = (const char*[]){ "/usr/bin/bash", "-c", cmd, NULL } }
 
 /* commands */
 // static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
@@ -102,11 +102,11 @@ static const Key keys[] = {
   /* modifier                     key        function        argument */
   { MODKEY,                       XK_p,         spawn,          {.v = dmenucmd } },
   { MODKEY|ShiftMask,             XK_Return,    spawn,          {.v = termcmd } },
-  { MODKEY,                       XK_v,         spawn,          BASHCMD(incvolcmd) },
-  { MODKEY|ShiftMask,             XK_v,         spawn,          BASHCMD(decvolcmd) },
-  { 0,         XF86XK_AudioRaiseVolume,         spawn,          BASHCMD(incvolcmd) },
-  { 0,         XF86XK_AudioLowerVolume,         spawn,          BASHCMD(decvolcmd) },
-  { 0,                XF86XK_AudioMute,         spawn,          BASHCMD(mutvolcmd) },
+  { MODKEY,                       XK_v,         spawn,          SHCMD(incvolcmd) },
+  { MODKEY|ShiftMask,             XK_v,         spawn,          SHCMD(decvolcmd) },
+  { 0,         XF86XK_AudioRaiseVolume,         spawn,          SHCMD(incvolcmd) },
+  { 0,         XF86XK_AudioLowerVolume,         spawn,          SHCMD(decvolcmd) },
+  { 0,                XF86XK_AudioMute,         spawn,          SHCMD(mutvolcmd) },
 
   { MODKEY,                       XK_b,         togglebar,      {0} },
   { MODKEY,                       XK_j,         focusstack,     {.i = +1 } },
