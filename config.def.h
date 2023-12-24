@@ -1,6 +1,7 @@
 /* See LICENSE file for copyright and license details. */
 #include "themes/tokyonight.h"
 #include "dwm.h"
+#include <X11/XF86keysym.h>
 
 /* appearance */
 static const unsigned int borderpx  = 2;        /* border pixel of windows */
@@ -94,6 +95,8 @@ static const char *dmenucmd[]    = { "dmenu_run", "-h", "28", "-m", dmenumon, NU
 static const char *termcmd[]     = { "st", NULL };
 static const char incvolcmd[]    = "pamixer -i 2 && pkill -RTMIN+10 dwmblocks";
 static const char decvolcmd[]    = "pamixer -d 2 && pkill -RTMIN+10 dwmblocks";
+static const char mutvolcmd[]    = "pamixer -t && pkill -RTMIN+10 dwmblocks";
+
 
 static const Key keys[] = {
   /* modifier                     key        function        argument */
@@ -101,6 +104,9 @@ static const Key keys[] = {
   { MODKEY|ShiftMask,             XK_Return,    spawn,          {.v = termcmd } },
   { MODKEY,                       XK_v,         spawn,          BASHCMD(incvolcmd) },
   { MODKEY|ShiftMask,             XK_v,         spawn,          BASHCMD(decvolcmd) },
+  { 0,         XF86XK_AudioRaiseVolume,         spawn,          BASHCMD(incvolcmd) },
+  { 0,         XF86XK_AudioLowerVolume,         spawn,          BASHCMD(decvolcmd) },
+  { 0,                XF86XK_AudioMute,         spawn,          BASHCMD(mutvolcmd) },
 
   { MODKEY,                       XK_b,         togglebar,      {0} },
   { MODKEY,                       XK_j,         focusstack,     {.i = +1 } },
